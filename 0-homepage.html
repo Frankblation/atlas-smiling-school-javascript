@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>holberton-smiling</title>
     <!-- SLICK -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link defer rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <!-- Custom and Font Styles  -->
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="font-style.css" />
@@ -145,24 +145,23 @@
     <main class="main">
 <!-- Quotes -->
 <section class="quotes section d-flex align-items-center">
-  <div class="container">
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-
-          </div>
-          <a class="carousel-control-prev arrow-left" href="#carouselExampleControls" role="button"
-             data-slide="prev">
-              <img src="images/arrow_white_left.png" alt="Quote Previous" aria-hidden="true"/>
-              <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next arrow-right" href="#carouselExampleControls" role="button"
-             data-slide="next">
-              <img src="images/arrow_white_right.png" alt="Quote Next" aria-hidden="true"/>
-              <span class="sr-only">Next</span>
-          </a>
-      </div>
-  </div>
-</section>
+              <div class="container">
+                <div class="loader"> </div>
+                  <div class="slick-carousel">
+              </div>
+                      <a class="carousel-control-prev arrow-left" href="#carouselExampleControls" role="button"
+                         data-slide="prev">
+                          <img src="images/arrow_white_left.png" alt="Quote Previous" aria-hidden="true"/>
+                          <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next arrow-right" href="#carouselExampleControls" role="button"
+                         data-slide="next">
+                          <img src="images/arrow_white_right.png" alt="Quote Next" aria-hidden="true"/>
+                          <span class="sr-only">Next</span>
+                      </a>
+                  </div>
+              </div>
+  </section>
           <!---Popular-->
       <section class="popular section d-flex align-items-center">
         <div class="container">
@@ -1985,6 +1984,6 @@
         </div>
       </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>
