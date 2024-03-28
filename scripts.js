@@ -1,14 +1,14 @@
 // script.js
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Function to fetch quotes dynamically
+$(document).ready(function() {
+
+    
     function fetchQuotes() {
         var quoteCarousel = document.querySelector("#quote-carousel .carousel-inner");
         var loader = document.createElement("div");
         loader.className = "loader";
         quoteCarousel.appendChild(loader);
 
-        // AJAX request to fetch quotes from the provided URL
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "https://smileschool-api.hbtn.info/quotes");
         xhr.onreadystatechange = function () {
@@ -42,3 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fetch quotes when the page loads
     fetchQuotes();
 });
+
+$(document).ready(function(){
+    $('.carousel-inner"').slick({
+
+    });
+  });

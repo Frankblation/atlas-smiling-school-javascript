@@ -116,11 +116,12 @@
           </div>
       </header>
       <main class="main">
+    <!-- quotes -->
           <section class="quotes section d-flex align-items-center">
               <div class="container">
                   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
-                          <!-- Carousel items will be dynamically added here -->
+
                       </div>
                       <a class="carousel-control-prev arrow-left" href="#carouselExampleControls" role="button"
                          data-slide="prev">
@@ -136,69 +137,6 @@
               </div>
           </section>
       </main>
-    <script>
-
-      fetch('https://smileschool-api.hbtn.info/quotes')
-          .then(response => response.json())
-          .then(data => {
-              const quotes = data.quotes;
-              const carouselInner = document.querySelector('.carousel-inner');
-
-              quotes.forEach(quote => {
-                  const carouselItem = document.createElement('div');
-                  carouselItem.classList.add('carousel-item');
-
-                  const row = document.createElement('div');
-                  row.classList.add('row', 'mx-auto', 'align-items-center');
-
-                  const col1 = document.createElement('div');
-                  col1.classList.add('col-12', 'col-sm-2', 'col-lg-2', 'offset-lg-1', 'text-center');
-
-                  const img = document.createElement('img');
-                  img.classList.add('d-block', 'align-self-center');
-                  img.setAttribute('src', 'images/profile_5.jpg');
-                  img.setAttribute('alt', 'Carousel Pic');
-
-                  col1.appendChild(img);
-                  row.appendChild(col1);
-
-                  const col2 = document.createElement('div');
-                  col2.classList.add('col-12', 'col-sm-7', 'offset-sm-2', 'col-lg-9', 'offset-lg-0');
-
-                  const quoteText = document.createElement('div');
-                  quoteText.classList.add('quote-text');
-
-                  const p = document.createElement('p');
-
-                  p.classList.add('text-white');
-                    p.textContent = '« ' + quote.text + ' »';
-
-                    const h4 = document.createElement('h4');
-                    h4.classList.add('text-white', 'font-weight-bold');
-                    h4.textContent = quote.name;
-
-                    const span = document.createElement('span');
-                    span.classList.add('text-white');
-                    span.textContent = quote.title;
-
-                    quoteText.appendChild(p);
-                    quoteText.appendChild(h4);
-                    quoteText.appendChild(span);
-                    col2.appendChild(quoteText);
-                    row.appendChild(col2);
-                    carouselItem.appendChild(row);
-
-                    // Add the 'active' class to the first carousel item
-                    if (!carouselInner.firstChild) {
-                        carouselItem.classList.add('active');
-                    }
-
-                    carouselInner.appendChild(carouselItem);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching quotes:', error);
-            });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
