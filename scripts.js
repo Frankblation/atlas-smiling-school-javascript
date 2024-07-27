@@ -20,15 +20,15 @@ $(document).ready(function() {
                 $.each(response, function(index, quote) {
                     var quoteItem = $("<div>").addClass("carousel-item");
                     var quoteContent = $(`
-                        <div class="">
-                            <div class="col-sm-6 text-center">
+                        <div class="row mx-auto align-items-center">
+                            <div class="col-12 col-sm-2 col-lg-2 offset-lg-1 text-center">
                                 <div class="testimonial-item">
-                                    <img class="col-md-3 rounded-circle" src="${quote.pic_url}" class="d-block w-100" alt="Testimonial">
-                                    </div>
-                                    <div class="row-sm-6 ml-3 d-flex flex-column">
-                                    <div class="col-sm-4">&lt;&lt;${quote.text}&gt;&gt;</div>
-                                    <h3 class="font-weight-bold mt-3">${quote.name}</h3>
-                                    <div>${quote.title}</div>
+                                    <img class="d-block align-self-center rounded-circle" src="${quote.pic_url}" class="d-block w-100" alt="Testimonial">
+                                </div>
+                                <div class="col-12 col-sm-7 offset-sm-2 col-lg-9 offset-lg-0">
+                                    <div class="quote-text text-white">&lt;&lt;${quote.text}&gt;&gt;</div>
+                                    <h3 class="text-white font-weight-bold">${quote.name}</h3>
+                                    <div class="newtitle text-white">${quote.title}</div>
                                 </div>
                             </div>
                         </div>`);
@@ -39,7 +39,7 @@ $(document).ready(function() {
                 quoteCarousel.slick({
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    autoplay: true,
+                    autoplay: false,
                     autoplaySpeed: 2000,
                     arrows: true,
                     prevArrow: '<a class="carousel-control-prev arrow-left" href="#"><img src="images/arrow_white_left.png" alt="Quote Previous" aria-hidden="true"/><span class="sr-only">Previous</span></a>',
@@ -53,19 +53,6 @@ $(document).ready(function() {
         });
     }
 
-    // Fetch quotes when the page loads
-    fetchQuotes();
-});
-
-$(document).ready(function () {
-    function showLoader() {
-        $(".loader").show();
-    }
-
-    function hideLoader() {
-        $(".loader").hide();
-    }
-
     function fetchPopularTutorials() {
         var popularCarousel = $(".slick-car");
         showLoader();
@@ -73,10 +60,10 @@ $(document).ready(function () {
         $.ajax({
             url: "https://smileschool-api.hbtn.info/popular-tutorials",
             method: "GET",
-            success: function (response) {
+            success: function(response) {
                 hideLoader();
                 popularCarousel.empty();
-                $.each(response, function (index, tutorial) {
+                $.each(response, function(index, tutorial) {
                     var tutorialItem = $("<div>").addClass("carousel-item");
                     var tutorialContent = $(`
                         <div class="">
@@ -109,9 +96,9 @@ $(document).ready(function () {
                 });
 
                 popularCarousel.slick({
-                    slidesToShow: 3,
+                    slidesToShow: 1,
                     slidesToScroll: 1,
-                    autoplay: true,
+                    autoplay: false,
                     autoplaySpeed: 2000,
                     arrows: true,
                     prevArrow: '<a class="carousel-control-prev arrow-left" href="#"><img src="images/arrow_white_left.png" alt="Previous" aria-hidden="true"/><span class="sr-only">Previous</span></a>',
@@ -120,7 +107,7 @@ $(document).ready(function () {
                         {
                             breakpoint: 768,
                             settings: {
-                                slidesToShow: 2,
+                                slidesToShow: 1,
                                 slidesToScroll: 1
                             }
                         },
@@ -134,15 +121,13 @@ $(document).ready(function () {
                     ]
                 });
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 hideLoader();
                 console.error("Failed to fetch popular tutorials. Status code: " + xhr.status);
             }
         });
     }
 
-    // Fetch popular tutorials when the page loads
+    fetchQuotes();
     fetchPopularTutorials();
-
-    // Your existing code in popular_scripts.js remains unchanged
 });
