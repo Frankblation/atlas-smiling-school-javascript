@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     function showLoader() {
         $(".loader").show();
     }
@@ -14,10 +14,10 @@ $(document).ready(function() {
         $.ajax({
             url: "https://smileschool-api.hbtn.info/quotes",
             method: "GET",
-            success: function(response) {
+            success: function (response) {
                 hideLoader();
                 quoteCarousel.empty();
-                $.each(response, function(index, quote) {
+                $.each(response, function (index, quote) {
                     var quoteItem = $("<div>").addClass("carousel-item");
                     var quoteContent = $(`
                         <div class="row mx-auto align-items-center">
@@ -46,7 +46,7 @@ $(document).ready(function() {
                     nextArrow: '<a class="carousel-control-next arrow-right" href="#"><img src="images/arrow_white_right.png" alt="Quote Next" aria-hidden="true"/><span class="sr-only">Next</span></a>'
                 });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 hideLoader();
                 console.error("Failed to fetch quotes. Status code: " + xhr.status);
             }
@@ -60,10 +60,10 @@ $(document).ready(function() {
         $.ajax({
             url: "https://smileschool-api.hbtn.info/popular-tutorials",
             method: "GET",
-            success: function(response) {
+            success: function (response) {
                 hideLoader();
                 popularCarousel.empty();
-                $.each(response, function(index, tutorial) {
+                $.each(response, function (index, tutorial) {
                     var tutorialItem = $("<div>").addClass("carousel-item");
                     var tutorialContent = $(`
                         <div class="">
@@ -121,12 +121,94 @@ $(document).ready(function() {
                     ]
                 });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 hideLoader();
                 console.error("Failed to fetch popular tutorials. Status code: " + xhr.status);
             }
         });
     }
+
+    function displayResults(data) {
+        const videoCards = data.courses.map(course => `
+            <div class="video-card">
+                <img src="${course.thumb_url}" alt="${course.title}">
+                <div>
+                    <h3>${course.title}</h3>
+                    <p>${course["sub-title"]}</p>
+                    <p>${course.author}</p>
+                </div>
+            </div>
+        `);
+        $('#video-cards').html(videoCards.join(''));
+    }
+
+    function displaySearch(data) {
+        $('#keywords').val(data.q);
+
+        const topics = data.topics.map(topic => `<option value="${topic}">${topic}</option>`);
+        $('#topics').html(topics.join(''));
+
+        const sorts = data.sorts.map(sort => `<option value="${sort}">${sort}</option>`);
+        $('#sort-by').html(sorts.join(''));
+    }
+
+    function displaySearchAndResults(data) {
+        displayResults(data);
+        displaySearch(data);
+    }
+
+    function displayLoader(active, id) {
+        if (active) {
+            let $loader = $(`<div class="loader" id="loader-${id}"></div>`);
+            $(`#${id}`).append($loader);
+        } else {
+            let $loader = $(`#loader-${id}`);
+            $loader.remove();
+        }
+    }
+
+    function requestData(url, callback, id, data = {}) {
+        displayLoader(true, id);
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: data,
+            headers: { "Content-Type": "application/json" },
+            success: function (response) {
+                displayLoader(false, id);
+                callback(response);
+            },
+            error: function (error) {
+                alert(`Error Getting Data from ${url}`);
+            },
+        });
+    }
+
+    function fetchCourses() {
+        const keywords = $('#keywords').val();
+        const topic = $('#topics').val();
+        const sort = $('#sort-by').val();
+
+        requestData("https://smileschool-api.hbtn.info/courses", displaySearchAndResults, 'results-items', { q: keywords, topic: topic, sort: sort });
+    }
+
+    let requestsCourses = [
+        {
+            url: "https://smileschool-api.hbtn.info/courses",
+            func: displaySearchAndResults,
+            id: "results-items",
+        },
+    ];
+
+    let requestObject = requestsCourses;
+
+    for (let r of requestObject) {
+        requestData(r.url, r.func, r.id);
+    }
+
+    $('#keywords').on('input', fetchCourses);
+    $('#topics').on('change', fetchCourses);
+    $('#sort-by').on('change', fetchCourses);
 
     fetchQuotes();
     fetchPopularTutorials();
