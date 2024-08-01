@@ -94,11 +94,11 @@ function getQuoteData() {
       type: "GET",
       success: function(response) {
           response.forEach(function(quote) {
-              const item = `<div class="carousel-item d-flex flex-row align-items-center justify-content-center pr-4 pl-4 m-0">
-                              <img src="${quote.pic_url}" alt="Image">
+              const item = `<div class="carousel-item text-white d-flex flex-row align-items-center justify-content-center mt-5 m-0">
+                              <img class="m-4" src="${quote.pic_url}" alt="Image">
                               <div class="d-flex flex-column">
-                                  <p class="quote-text">${quote.text}</p>
-                                  <p class="quote-text"><strong>${quote.name}</strong></p>
+                                  <p class="col-5 quote-text">${quote.text}</p>
+                                  <p class=" col-3quote-text"><strong>${quote.name}</strong></p>
                                   <p class="quote-text"><em>${quote.title}</em></p>
                               </div>
                             </div>`;
